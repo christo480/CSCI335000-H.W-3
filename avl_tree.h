@@ -145,6 +145,11 @@ class AvlTree
     {
         remove( x, root );
     }
+    
+    Comparable find(const Comparable & x)
+    {
+      find(x,root);
+    }
 
   private:
     struct AvlNode
@@ -163,7 +168,23 @@ class AvlTree
 
     AvlNode *root;
 
-
+    /**
+     * Finds node with value equal to x from the tree.
+     * @returns the Comparablein the tree 
+     */
+    Comparable find(const Comparable & x, AvlNode *t)
+    {
+     
+      if( t == nullptr )
+          //return false; // No Match
+      else if( x < t->element )
+          return find( x, t->left );
+      else if( t->element < x )
+          return find( x, t->right );
+      else
+          return t-> element;    // Match
+    
+    }
     /**
      * Internal method to insert into a subtree.
      * x is the item to insert.
@@ -413,6 +434,9 @@ class AvlTree
         rotateWithLeftChild( k1->right );
         rotateWithRightChild( k1 );
     }
+
+
 };
+
 
 #endif

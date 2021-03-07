@@ -16,9 +16,9 @@ namespace {
 template <typename TreeType>
 void QueryTree(const string &dbx_filename, TreeType &a_tree) {
   // Code for running Part 2.1
+  std::cout<< "dbx_filename :" << dbx_filename<<std::endl;
   ifstream file(dbx_filename);
   string db_line; //read database line
-
   // You can use public functions of TreeType. For example:
   //a_tree.insert(10);
   //a_tree.printTree();
@@ -78,3 +78,5 @@ int main(int argc, char **argv)
   
   return 0;
 }
+
+
