@@ -19,6 +19,7 @@ using namespace std;
 // boolean isEmpty( )     --> Return true if empty; else false
 // void makeEmpty( )      --> Remove all items
 // void printTree( )      --> Print tree in sorted order
+// string get_acronym
 // ******************ERRORS********************************
 // Throws UnderflowException as warranted
 
@@ -135,6 +136,7 @@ class AvlTree
      */
     void insert( Comparable && x )
     {
+
         insert( std::move( x ), root );
     }
      
@@ -145,12 +147,71 @@ class AvlTree
     {
         remove( x, root );
     }
-    
-    Comparable find(const Comparable & x)
+    string get_acronym(const string & x, AvlNode * t )
     {
-      find(x,root);
+      return get_acronym(x,t)->element
+    }
+    AvlNode * get_acronym(const string & x, AvlNode * t)
+    {
+      /*
+      if( find(x,root) == x)
+        return find(x,root);
+      else
+        return "Not Found";*/
+      while( t != nullptr )
+            if( x < t->element )
+                t = t->left;
+            else if( t->element < x )
+                t = t->right;
+            else
+                return t;    // Match
+      /*
+      if( t != nullptr )
+        {
+            get_acronym(x, t->left );
+            if(t-> element.has_recog(x))
+               return t;
+            get_acronym(x, t->right );
+        }*/
+    }
+    
+    /****** NONRECURSIVE VERSION*************************
+    bool contains( const Comparable & x, AvlNode *t ) const
+    {
+        while( t != nullptr )
+            if( x < t->element )
+                t = t->left;
+            else if( t->element < x )
+                t = t->right;
+            else
+                return true;    // Match
+
+        return false;   // No match
+    }
+*****************************************************/
+    int get_size()
+    {
+      count_nodes();
+      return size;
     }
 
+    int getdepth()
+    {
+      int left_depth;
+      int right_depth;
+      AvlNode * & t = root;
+      while(t->left!= nullptr)
+      {
+        t=t->left;
+      }
+      left_depth =t->height;
+      while(t->right!= nullptr)
+      {
+        t=t->right;
+      }
+      right_depth=t->height;
+      return (left_depth+right_depth)/2;
+    }
   private:
     struct AvlNode
     {
@@ -167,24 +228,43 @@ class AvlTree
     };
 
     AvlNode *root;
-
+    int size;
+    /*
     /**
      * Finds node with value equal to x from the tree.
      * @returns the Comparablein the tree 
-     */
-    Comparable find(const Comparable & x, AvlNode *t)
+     
+    Comparable find(Comparable & x const, AvlNode *t )
     {
      
       if( t == nullptr )
-          //return false; // No Match
+          return t->element; // No Match but return value that they fail on
       else if( x < t->element )
           return find( x, t->left );
       else if( t->element < x )
           return find( x, t->right );
-      else
+      else if( t->element == x)
           return t-> element;    // Match
     
+    }*/
+
+    int count_nodes()
+    {
+      size=0;
+      count_nodes(root);
+      
     }
+    int count_nodes(AvlNode *t)
+    {
+      size++;
+      if( t != nullptr )
+        {
+            count_nodes( t->left );
+            //cout << t->element << endl;
+            count_nodes( t->right );
+        }
+    }
+    
     /**
      * Internal method to insert into a subtree.
      * x is the item to insert.

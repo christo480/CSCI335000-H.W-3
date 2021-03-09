@@ -3,7 +3,7 @@
 
 #include "avl_tree.h"
 #include "sequence_map.h"// You will have to add #include "sequence_map.h"
-
+#include <fstream>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -26,7 +26,10 @@ void TestTree(const string &dbx_filename, const string &seq_filename, TreeType &
   //a_tree.insert(10);
   //a_tree.printTree();
 
-  
+  for(int i =0; i<9;i++)
+  {
+    getline(file,db_line);
+  }
   while (getline(file,db_line)) //GetNextLineFromDatabaseFile
   {    
     // Get the first part of the line:    
@@ -38,8 +41,10 @@ void TestTree(const string &dbx_filename, const string &seq_filename, TreeType &
       a_tree.insert(new_sequence_map);    
     }  // End second while.  
   }  // End first while.*/
-  a_tree.printTree();
-
+  //a_tree.printTree();
+  std::cout <<"2."<<a_tree.get_size()<<std::endl;
+  std::cout <<"3a."<< a_tree.getdepth()/a_tree.get_size()<<std::endl;
+  std::cout <<"3a."<< a_tree.getdepth()/a_tree.get_size()<<std::endl;
 }
 
 }  // namespace
@@ -53,7 +58,7 @@ int main(int argc, char **argv) {
   const string seq_filename(argv[2]);
   cout << "Input file is " << dbx_filename << ", and sequences file is " << seq_filename << endl;
   // Note that you will replace the type AvlTree<int> with AvlTree<SequenceMap>
-  AvlTree<int> a_tree;
+  AvlTree<sequence_map> a_tree;
   TestTree(dbx_filename, seq_filename, a_tree);
 
   return 0;

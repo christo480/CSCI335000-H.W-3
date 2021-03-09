@@ -26,15 +26,28 @@ class sequence_map
   {
     return this->recognition_sequence_>rhs.recognition_sequence_; 
   }
+  bool has_recog(const string ene) const
+  {
+    for(string x : enzyme_acronyms)
+    {
+      if(x==ene)
+        return true;
+    }
+    return false;
+  }
   friend ostream& operator<<(ostream& os, const sequence_map& seq)
   {
-    cout << seq.recognition_sequence_ <<"/";
+    cout << seq.recognition_sequence_ ;
     for(string strand:seq.enzyme_acronyms_)
     {
       cout << strand<<"/";
     }
     cout <<"/";
     return os;
+  }
+  string getRecg()
+  {
+    return recognition_sequence_;
   }
   /*! SequenceMap(const string &a_rec_seq, const string &an_enz_acro)
     /param @a_rec_seq

@@ -35,6 +35,13 @@ void QueryTree(const string &dbx_filename, TreeType &a_tree) {
       a_tree.insert(new_sequence_map);    
     }  // End second while.  
   }  // End first while.*/
+  string search;
+  cin>> search
+  while(search!= "")
+  {
+    std::cout<<a_tree.GetEnzymeAcronym(search);
+    cin>> search;
+  }
 }
 
 }  // namespace

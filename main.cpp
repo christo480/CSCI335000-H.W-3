@@ -47,7 +47,13 @@ void QueryTree(const string &dbx_filename, TreeType &a_tree) {
       a_tree.insert(new_sequence_map);    
     }  // End second while.  
   }  // End first while.*/
-  a_tree.printTree();
+  string query;
+  cin>> query;
+  while(query!="")
+  {
+    std::cout << a_tree.get_acronym(query);
+    cin>> query;
+  }
 }
 
 /*Tree<SequenceMap> a_tree; string db_line; // Read the file line-by-line: 
