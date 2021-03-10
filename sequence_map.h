@@ -25,7 +25,7 @@ class sequence_map
   bool operator>(const sequence_map &rhs) const
   {
     return this->recognition_sequence_>rhs.recognition_sequence_; 
-  }
+  }/*
   bool has_recog(const string ene) const
   {
     for(string x : enzyme_acronyms)
@@ -34,7 +34,7 @@ class sequence_map
         return true;
     }
     return false;
-  }
+  }*/
   friend ostream& operator<<(ostream& os, const sequence_map& seq)
   {
     cout << seq.recognition_sequence_ ;
@@ -45,7 +45,7 @@ class sequence_map
     cout <<"/";
     return os;
   }
-  string getRecg()
+  string getRecog()
   {
     return recognition_sequence_;
   }

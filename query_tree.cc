@@ -27,14 +27,23 @@ void QueryTree(const string &dbx_filename, TreeType &a_tree) {
   while (getline(file,db_line)) //GetNextLineFromDatabaseFile
   {    
     // Get the first part of the line:    
-    string an_enz_acro = db_line;// GetEnzymeAcronym      
-    string a_reco_seq;    
-    while(getline(file, a_reco_seq))
+    string extracted_line = db_line;// GetEnzymeAcronym      
+    string an_enz_acro;
+    string a_reco_seq;
+    cout<<extracted_line;
+    an_enz_acro= extracted_line.substr(0,extracted_line.find_first_of("/"));
+    while(extracted_line!="/")
     {
+      extracted_line = extracted_line.substr(extracted_line.find_first_of("/")+1,extracted_line.size());
+      cout<<extracted_line;
+      a_reco_seq= extracted_line.substr(0,extracted_line.find_first_of("/"));
+
       sequence_map new_sequence_map(a_reco_seq, an_enz_acro); 
-      a_tree.insert(new_sequence_map);    
+      a_tree.insert(new_sequence_map);  
+       
     }  // End second while.  
   }  // End first while.*/
+  /*
   string search;
   cin>> search
   while(search!= "")
@@ -42,6 +51,7 @@ void QueryTree(const string &dbx_filename, TreeType &a_tree) {
     std::cout<<a_tree.GetEnzymeAcronym(search);
     cin>> search;
   }
+  */
 }
 
 }  // namespace

@@ -147,33 +147,34 @@ class AvlTree
     {
         remove( x, root );
     }
-    string get_acronym(const string & x, AvlNode * t )
-    {
-      return get_acronym(x,t)->element
-    }
-    AvlNode * get_acronym(const string & x, AvlNode * t)
-    {
-      /*
-      if( find(x,root) == x)
-        return find(x,root);
-      else
-        return "Not Found";*/
-      while( t != nullptr )
-            if( x < t->element )
-                t = t->left;
-            else if( t->element < x )
-                t = t->right;
-            else
-                return t;    // Match
-      /*
-      if( t != nullptr )
-        {
-            get_acronym(x, t->left );
-            if(t-> element.has_recog(x))
-               return t;
-            get_acronym(x, t->right );
-        }*/
-    }
+    
+    // string get_acronym(const string & x, AvlNode * t )
+    // {
+    //   return get_acronym(x,t)->element.getRecog()
+    // }
+    // AvlNode * get_acronym(const string & x, AvlNode * t)
+    // {
+      
+    //   if( find(x,root) == x)
+    //     return find(x,root);
+    //   else
+    //     return "Not Found";*//*
+    //   while( t != nullptr )
+    //         if( x < t->element )
+    //             t = t->left;
+    //         else if( t->element < x )
+    //             t = t->right;
+    //         else
+    //             return t;    // Match
+      
+    //   if( t != nullptr )
+    //     {
+    //         get_acronym(x, t->left );
+    //         if(t-> element.has_recog(x))
+    //            return t;
+    //         get_acronym(x, t->right );
+    //     }
+    // }
     
     /****** NONRECURSIVE VERSION*************************
     bool contains( const Comparable & x, AvlNode *t ) const
@@ -194,7 +195,7 @@ class AvlTree
       count_nodes();
       return size;
     }
-
+    /*
     int getdepth()
     {
       int left_depth;
@@ -212,6 +213,8 @@ class AvlTree
       right_depth=t->height;
       return (left_depth+right_depth)/2;
     }
+
+    */
   private:
     struct AvlNode
     {
