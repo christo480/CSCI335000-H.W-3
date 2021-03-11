@@ -18,6 +18,12 @@ class sequence_map
     enzyme_acronyms_ = vector<string>(1);
     enzyme_acronyms_.push_back(an_enz_acro);
   }
+  /*
+  sequence_map(const string &a_rec_seq)
+  {
+    recognition_sequence_ =a_rec_seq;
+    enzyme_acronyms_ = vector<string>(1);
+  }*/
   bool operator<(const sequence_map &rhs) const
   {
     return this->recognition_sequence_<rhs.recognition_sequence_; 

@@ -1,4 +1,4 @@
-// <Your name>
+// Christian Gillies
 // Main file for Part 2.1 of Homework 3.
 
 #include "avl_tree.h"
@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <algorithm> 
 using namespace std;
 
 namespace {
@@ -27,31 +28,49 @@ void QueryTree(const string &dbx_filename, TreeType &a_tree) {
   while (getline(file,db_line)) //GetNextLineFromDatabaseFile
   {    
     // Get the first part of the line:    
-    string extracted_line = db_line;// GetEnzymeAcronym      
+    string extracted_line = db_line;      
     string an_enz_acro;
     string a_reco_seq;
-    cout<<extracted_line;
-    an_enz_acro= extracted_line.substr(0,extracted_line.find_first_of("/"));
-    while(extracted_line!="/")
-    {
-      extracted_line = extracted_line.substr(extracted_line.find_first_of("/")+1,extracted_line.size());
-      cout<<extracted_line;
-      a_reco_seq= extracted_line.substr(0,extracted_line.find_first_of("/"));
 
-      sequence_map new_sequence_map(a_reco_seq, an_enz_acro); 
-      a_tree.insert(new_sequence_map);  
+  
+    
+
+    an_enz_acro= extracted_line.substr(0,extracted_line.find_first_of("/"));// GetEnzymeAcronym
+    //cout<<an_enz_acro<<std::endl;
+    extracted_line = extracted_line.substr(extracted_line.find_first_of("/")+1,extracted_line.size());
+    int recog_count = std::count(extracted_line.begin(), extracted_line.end(),'/');
+    
+    for(int i =0;i<recog_count;i++)//while(extracted_line.substr(0,2)!="//")
+    {
+      a_reco_seq= extracted_line.substr(0,extracted_line.find_first_of("/"));
+      extracted_line = extracted_line.substr(extracted_line.find_first_of("/")+1,extracted_line.size());
+      
+      //cout<<" "<<a_reco_seq<<std::endl;
+     
+      
+      if(a_reco_seq!="" && an_enz_acro!="")
+      {
+        //cout<<a_reco_seq << " "<<an_enz_acro<<std::endl;
+        sequence_map new_sequence_map(a_reco_seq, an_enz_acro);
+        a_tree.insert(new_sequence_map);   
+      }
+      
        
     }  // End second while.  
   }  // End first while.*/
-  /*
+  
+  a_tree.printTree();
+  
   string search;
-  cin>> search
+  cin>> search;
+  
   while(search!= "")
   {
-    std::cout<<a_tree.GetEnzymeAcronym(search);
+    sequence_map entry(search,"");
+    std::cout<<a_tree.find(entry);
     cin>> search;
   }
-  */
+  
 }
 
 }  // namespace

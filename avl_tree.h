@@ -215,6 +215,13 @@ class AvlTree
     }
 
     */
+
+    Comparable find(Comparable & x)
+    {
+      return find(x,root);
+    }
+    
+
   private:
     struct AvlNode
     {
@@ -232,12 +239,13 @@ class AvlTree
 
     AvlNode *root;
     int size;
-    /*
+
+    
     /**
      * Finds node with value equal to x from the tree.
      * @returns the Comparablein the tree 
-     
-    Comparable find(Comparable & x const, AvlNode *t )
+    */ 
+    Comparable find(Comparable & x , AvlNode *t)
     {
      
       if( t == nullptr )
@@ -246,11 +254,10 @@ class AvlTree
           return find( x, t->left );
       else if( t->element < x )
           return find( x, t->right );
-      else if( t->element == x)
+      else 
           return t-> element;    // Match
     
-    }*/
-
+    }
     int count_nodes()
     {
       size=0;
