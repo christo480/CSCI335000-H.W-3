@@ -51,9 +51,12 @@ class sequence_map
     cout <<"/";
     return os;
   }
-  string getRecog()
+  string get_acronyms()
   {
-    return recognition_sequence_;
+    string acronyms;
+    for(string x : enzyme_acronyms_)
+      acronyms+=x;
+    return acronyms;
   }
   /*! SequenceMap(const string &a_rec_seq, const string &an_enz_acro)
     /param @a_rec_seq

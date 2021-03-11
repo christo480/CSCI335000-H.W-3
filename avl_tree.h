@@ -193,10 +193,11 @@ class AvlTree
     int get_size()
     {
       count_nodes();
+      size/=2;
       return size;
     }
-    /*
-    int getdepth()
+    
+    int get_depth()
     {
       int left_depth;
       int right_depth;
@@ -214,7 +215,6 @@ class AvlTree
       return (left_depth+right_depth)/2;
     }
 
-    */
 
     Comparable find(Comparable & x)
     {

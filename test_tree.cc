@@ -10,7 +10,6 @@ using namespace std;
 
 namespace {
 
-
 // @dbx_filename: an input database filename.
 // @seq_filename: an input sequences filename.
 // @a_tree: an input tree of the type TreeType. It is assumed to be
@@ -26,25 +25,44 @@ void TestTree(const string &dbx_filename, const string &seq_filename, TreeType &
   //a_tree.insert(10);
   //a_tree.printTree();
 
-  for(int i =0; i<9;i++)
-  {
-    getline(file,db_line);
-  }
+  
   while (getline(file,db_line)) //GetNextLineFromDatabaseFile
   {    
     // Get the first part of the line:    
-    string an_enz_acro = db_line;// GetEnzymeAcronym      
-    string a_reco_seq;    
-    while(getline(file, a_reco_seq))
+    string extracted_line = db_line;      
+    string an_enz_acro;
+    string a_reco_seq;
+
+  
+    
+
+    an_enz_acro= extracted_line.substr(0,extracted_line.find_first_of("/"));// GetEnzymeAcronym
+    //cout<<an_enz_acro<<std::endl;
+    extracted_line = extracted_line.substr(extracted_line.find_first_of("/")+1,extracted_line.size());
+    int recog_count = std::count(extracted_line.begin(), extracted_line.end(),'/');
+    
+    for(int i =0;i<recog_count;i++)//while(extracted_line.substr(0,2)!="//")
     {
-      sequence_map new_sequence_map(a_reco_seq, an_enz_acro); 
-      a_tree.insert(new_sequence_map);    
+      a_reco_seq= extracted_line.substr(0,extracted_line.find_first_of("/"));
+      extracted_line = extracted_line.substr(extracted_line.find_first_of("/")+1,extracted_line.size());
+      
+      //cout<<" "<<a_reco_seq<<std::endl;
+     
+      
+      if(a_reco_seq!="" && an_enz_acro!="")
+      {
+        //cout<<a_reco_seq << " "<<an_enz_acro<<std::endl;
+        sequence_map new_sequence_map(a_reco_seq, an_enz_acro);
+        a_tree.insert(new_sequence_map);   
+      }
+      
+       
     }  // End second while.  
   }  // End first while.*/
-  //a_tree.printTree();
-  std::cout <<"2."<<a_tree.get_size()<<std::endl;
-  std::cout <<"3a."<< a_tree.getdepth()/a_tree.get_size()<<std::endl;
-  std::cout <<"3a."<< a_tree.getdepth()/a_tree.get_size()<<std::endl;
+  
+  std::cout <<"2. "<<a_tree.get_size()<<std::endl;
+  std::cout <<"3a. "<< a_tree.get_depth()/a_tree.get_size()<<std::endl;
+  std::cout <<"3a. "<< a_tree.get_depth()/a_tree.get_size()<<std::endl;
 }
 
 }  // namespace

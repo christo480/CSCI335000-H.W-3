@@ -59,16 +59,19 @@ void QueryTree(const string &dbx_filename, TreeType &a_tree) {
     }  // End second while.  
   }  // End first while.*/
   
-  a_tree.printTree();
+  //a_tree.printTree();
   
   string search;
-  cin>> search;
-  
-  while(search!= "")
+  //cin>> search;
+  //search!= "-1"
+  while(cin>> search)
   {
     sequence_map entry(search,"");
-    std::cout<<a_tree.find(entry);
-    cin>> search;
+    if(a_tree.contains(entry))
+      std::cout<<a_tree.find(entry).get_acronyms()<<endl;
+    else
+      std::cout<<"Not Found"<<endl;
+    
   }
   
 }
