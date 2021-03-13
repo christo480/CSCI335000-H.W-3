@@ -41,6 +41,8 @@ void TestTree(const string &dbx_filename, const string &seq_filename, TreeType &
     extracted_line = extracted_line.substr(extracted_line.find_first_of("/")+1,extracted_line.size());
     int recog_count = std::count(extracted_line.begin(), extracted_line.end(),'/');
     
+  
+
     for(int i =0;i<recog_count;i++)//while(extracted_line.substr(0,2)!="//")
     {
       a_reco_seq= extracted_line.substr(0,extracted_line.find_first_of("/"));
@@ -61,8 +63,29 @@ void TestTree(const string &dbx_filename, const string &seq_filename, TreeType &
   }  // End first while.*/
   
   std::cout <<"2. "<<a_tree.get_size()<<std::endl;
-  std::cout <<"3a. "<< a_tree.get_depth()/a_tree.get_size()<<std::endl;
-  std::cout <<"3a. "<< a_tree.get_depth()/a_tree.get_size()<<std::endl;
+  std::cout <<"3a. "<< "Not Done"<<std::endl;
+  /*
+  string search_entry;
+  for(int i=0;i<421;i++)
+  {
+    cin>> search_entry;
+    std::cout<< search_entry;
+    sequence_map entry(search_entry,"");
+    if(a_tree.contains(entry))
+      std::cout<<a_tree.find(entry).get_acronyms()<<endl;
+    else
+      std::cout<<"Not Found"<<endl;
+    
+  }
+  */
+  std::cout <<"4a. "<<a_tree.get_searches();
+  
+  std::cout <<std::endl;
+  std::cout <<"4b. "<< "Not Done"<<std::endl;
+  std::cout <<"5a. "<< "Not Done"<<std::endl;
+  std::cout <<"5b. "<< "Not Done"<<std::endl;
+  std::cout <<"6a. "<< "Not Done"<<std::endl;
+  std::cout <<"6b. "<< "Not Done"<<std::endl;
 }
 
 }  // namespace

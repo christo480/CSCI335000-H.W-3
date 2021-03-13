@@ -27,17 +27,22 @@ template <typename Comparable>
 class AvlTree
 {
   public:
+
     AvlTree( ) : root{ nullptr }
-      { }
+      { 
+        searches=0;
+      }
     
     AvlTree( const AvlTree & rhs ) : root{ nullptr }
     {
         root = clone( rhs.root );
+        searches=0;
     }
 
     AvlTree( AvlTree && rhs ) : root{ rhs.root }
     {
         rhs.root = nullptr;
+        searches=0;
     }
     
     ~AvlTree( )
@@ -86,6 +91,8 @@ class AvlTree
             throw UnderflowException{ };
         return findMax( root )->element;
     }
+
+    
 
     /**
      * Returns true if x is found in the tree.
@@ -190,38 +197,39 @@ class AvlTree
         return false;   // No match
     }
 *****************************************************/
+    
+    /**
+     * Counts the number of nodes in the avl tree
+     * @returns "size" of tree
+     */
     int get_size()
     {
       count_nodes();
       size/=2;
       return size;
     }
-    
-    int get_depth()
+    /*
+    float get_depth()
     {
-      int left_depth;
-      int right_depth;
-      AvlNode * & t = root;
-      while(t->left!= nullptr)
-      {
-        t=t->left;
-      }
-      left_depth =t->height;
-      while(t->right!= nullptr)
-      {
-        t=t->right;
-      }
-      right_depth=t->height;
+      float left_depth  =height(this->get_min());
+      float right_depth =height(this->get_max());
       return (left_depth+right_depth)/2;
     }
-
-
+    */
+    /**
+     * Searches tree for node matching Comparable
+     * @returns "size" of tree
+     */
     Comparable find(Comparable & x)
     {
+      
       return find(x,root);
     }
     
-
+    int get_searches()
+    {
+      return searches;
+    }
   private:
     struct AvlNode
     {
@@ -239,8 +247,14 @@ class AvlTree
 
     AvlNode *root;
     int size;
-
     
+    int searches;//counter of all searches
+    //@returns number of sucessful searches
+    //int get_searches() const
+    //{
+    //  return searches;
+    //}
+
     /**
      * Finds node with value equal to x from the tree.
      * @returns the Comparablein the tree 
@@ -254,17 +268,26 @@ class AvlTree
           return find( x, t->left );
       else if( t->element < x )
           return find( x, t->right );
-      else 
+      else
+      { 
+          searches++;// increments searches counter since there has been a sucessful search
           return t-> element;    // Match
+      }
     
     }
-    int count_nodes()
+    /**
+     * Resets counter and begins to count 
+    */
+    void count_nodes()
     {
-      size=0;
+      size=0;//resets counter
       count_nodes(root);
       
     }
-    int count_nodes(AvlNode *t)
+    /**
+     * Actually counts nodes in tree
+    */
+    void count_nodes(AvlNode *t)
     {
       size++;
       if( t != nullptr )
@@ -274,7 +297,35 @@ class AvlTree
             count_nodes( t->right );
         }
     }
-    
+    /* 
+    AvlNode * get_min( AvlNode *t ) const
+    {
+        if( t == nullptr )
+            return nullptr;
+        if( t->left == nullptr )
+            return t;
+        return findMin( t->left );
+    }
+    AvlNode * get_max( AvlNode *t ) const
+    {
+        if( t != nullptr )
+            while( t->right != nullptr )
+              t = t->right;
+        return t;
+    }
+
+    float get_depth(string setting)
+    {
+      if(setting=="max")
+      {
+        return get_max()->height;
+      }
+      else if(setting=="min")
+      {
+        return get_min()->height;
+      }
+    }*/
+
     /**
      * Internal method to insert into a subtree.
      * x is the item to insert.
@@ -376,6 +427,7 @@ class AvlTree
         return findMin( t->left );
     }
 
+    
     /**
      * Internal method to find the largest item in a subtree t.
      * Return node containing the largest item.
@@ -388,7 +440,8 @@ class AvlTree
         return t;
     }
 
-
+    
+    
     /**
      * Internal method to test if an item is in a subtree.
      * x is item to search for.
